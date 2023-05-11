@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include "coordination.hpp"
 #include "tile.hpp"
+#include "tilecolor.hpp"
 
 TEST_CASE("Testing Coordination", "[tile]")
 {
@@ -28,4 +29,11 @@ TEST_CASE("Testing Tiles class ", "[tile]")
 
     REQUIRE(tile.getSymbol() == "b2");
     REQUIRE(tile == "b2");
+}
+
+TEST_CASE("Testing Color", "[Color]")
+{
+    const four::TileColor                          color(125u, 1u, 11u);
+    const std::tuple<uint32_t, uint32_t, uint32_t> colorResult{125u, 1u, 11u};
+    REQUIRE(color.getColor() == colorResult);
 }
