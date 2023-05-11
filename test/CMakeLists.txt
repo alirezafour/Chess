@@ -15,6 +15,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
+file(GLOB SOURCES
+     ${CMAKE_SOURCE_DIR}/src/tile.cpp
+     ${CMAKE_SOURCE_DIR}/src/coordination.cpp
+)
 
 include(FetchContent)
 
@@ -28,5 +32,5 @@ FetchContent_MakeAvailable(Catch2)
 
 include(CTest)
 
-add_executable(${PROJECT_NAME} test.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES} test.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain)

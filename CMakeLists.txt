@@ -14,15 +14,16 @@ project(myApp
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+include_directories(src)
+
 file(GLOB SOURCES
-     "src/*.h"
      "src/*.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-option(ENABLE_TESTING "Enable the tests" ${PROJECT_IS_TOP_LEVEL})
-if(true)
+option(ENABLE_TESTING "Enable the tests" OFF)
+if(ENABLE_TESTING)
   enable_testing()
   add_subdirectory(test)
 endif()
