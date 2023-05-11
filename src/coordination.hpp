@@ -22,7 +22,7 @@ public:
     Coordination& operator=(const std::string_view& value);
     Coordination& operator=(Coordination&&) = default;
 
-    bool operator==(const Coordination& other);
+    bool operator==(const Coordination& other) const;
 
     friend bool operator==(const Coordination& cord, const std::string_view& other);
 
