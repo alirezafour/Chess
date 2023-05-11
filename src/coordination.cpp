@@ -29,13 +29,15 @@ Coordination::Coordination(const std::string_view& boardCoord)
 Coordination& Coordination::operator=(const std::string_view& value)
 {
     assert(value.size() == 2);
+    assert(static_cast<uint32_t>(value[0] - 'a') < 8u);
+    assert(static_cast<uint32_t>(value[1] - '0') < 8u);
     m_symbol[0] = value[0];
     m_symbol[1] = value[1];
     return *this;
 }
 
 //////////////
-bool Coordination::operator==(const Coordination& other)
+bool Coordination::operator==(const Coordination& other) const
 {
     return m_symbol == other.m_symbol;
 }
