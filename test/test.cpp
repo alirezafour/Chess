@@ -33,11 +33,14 @@ TEST_CASE("Testing Tiles class ", "[tile]")
 
 TEST_CASE("Testing Color", "[Color]")
 {
-    const four::TileColor         color(125u, 1u, 11u);
-    const std::array<uint32_t, 3> colorResult{125u, 1u, 11u};
-    REQUIRE(color.getColor() == colorResult);
+    const four::TileColor color(0x00FF0000);
+    REQUIRE(color.getColor() == 0x00FF0000);
 
-    const four::TileColor         newColor = {100u, 12u, 1u};
-    const std::array<uint32_t, 3> newColorResult{100u, 12u, 1u};
-    REQUIRE(newColor.getColor() == newColorResult);
+    const four::TileColor newColor = {0xFF, 0x1A, 0x22};
+    REQUIRE(newColor.getColor() == 0x00FF1A22);
+    REQUIRE(newColor.getRedValue() == 0xFF);
+    REQUIRE(newColor.getGreenValue() == 0x1A);
+    REQUIRE(newColor.getBlueValue() == 0x22);
+    std::array<uint8_t, 3> result = {0xFF, 0x1A, 0x22};
+    REQUIRE(newColor.getColorAsArray() == result);
 }

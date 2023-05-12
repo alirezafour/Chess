@@ -10,8 +10,8 @@ namespace four
 class TileColor
 {
 public:
-    TileColor(uint32_t red, uint32_t green, uint32_t blue);
-    TileColor(std::array<uint32_t, 3> color);
+    TileColor(uint8_t red, uint8_t green, uint8_t blue);
+    TileColor(uint32_t color);
 
     ~TileColor();
     TileColor(TileColor&&)                 = default;
@@ -19,13 +19,17 @@ public:
     TileColor& operator=(TileColor&&)      = default;
     TileColor& operator=(const TileColor&) = default;
 
-    void setColor(uint32_t red, uint32_t green, uint32_t blue);
-    void setColor(const std::array<uint32_t, 3>& color);
+    void setColor(uint8_t red, uint8_t green, uint8_t blue);
+    void setColor(uint32_t color);
 
-    std::array<uint32_t, 3> getColor() const;
+    uint32_t               getColor() const;
+    uint8_t                getRedValue() const;
+    uint8_t                getGreenValue() const;
+    uint8_t                getBlueValue() const;
+    std::array<uint8_t, 3> getColorAsArray() const;
 
 private:
-    std::array<uint32_t, 3> m_color;
+    uint32_t m_color;
 };
 
 

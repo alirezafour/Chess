@@ -1,59 +1,68 @@
 #include "tilecolor.hpp"
 
+#include <array>
 #include <cassert>
+#include <cstdint>
 #include <utility>
 
 namespace four
 {
 
 ////////
-TileColor::TileColor(uint32_t red, uint32_t green, uint32_t blue)
+TileColor::TileColor(uint8_t red, uint8_t green, uint8_t blue)
 {
-    assert(red < 256);
-    assert(green < 256);
-    assert(blue < 256);
-    m_color[0] = red;
-    m_color[1] = green;
-    m_color[2] = blue;
+    setColor(red, green, blue);
 }
 
-TileColor::TileColor(std::array<uint32_t, 3> color)
+TileColor::TileColor(uint32_t color)
 {
-    assert(!color.empty());
-
-    m_color = std::move(color);
+    m_color = color;
 }
 
 ////////
 TileColor ::~TileColor() = default;
 
 ////////
-void TileColor::setColor(uint32_t red, uint32_t green, uint32_t blue)
+void TileColor::setColor(uint8_t red, uint8_t green, uint8_t blue)
 {
-    assert(red < 256);
-    assert(green < 256);
-    assert(blue < 256);
-
-    m_color[0] = red;
-    m_color[1] = green;
-    m_color[2] = blue;
+    m_color = (static_cast<uint32_t>(red) << 16) | (static_cast<uint32_t>(green) << 8) | (static_cast<uint32_t>(blue));
 }
 
 ////////
-void TileColor::setColor(const std::array<uint32_t, 3>& color)
+void TileColor::setColor(uint32_t color)
 {
-    assert(!color.empty());
-    assert(color[0] < 256);
-    assert(color[1] < 256);
-    assert(color[2] < 256);
-
     m_color = color;
 }
 
 ////////
-std::array<uint32_t, 3> TileColor::getColor() const
+uint32_t TileColor::getColor() const
 {
     return m_color;
+}
+
+////////
+uint8_t TileColor::getRedValue() const
+{
+    return static_cast<uint8_t>((m_color & 0x00FF0000) >> 16);
+}
+
+////////
+uint8_t TileColor::getGreenValue() const
+{
+    return static_cast<uint8_t>((m_color & 0x0000FF00) >> 8);
+}
+
+////////
+uint8_t TileColor::getBlueValue() const
+{
+    return static_cast<uint8_t>(m_color & 0x000000FF);
+}
+
+////////
+std::array<uint8_t, 3> TileColor::getColorAsArray() const
+{
+    std::array<uint8_t, 3> color = {getRedValue(), getGreenValue(), getBlueValue()};
+    return color;
 }
 
 } // namespace four
